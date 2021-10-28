@@ -29,7 +29,24 @@ defmodule GlazeApiWeb.Router do
 
     get "/glazes", GlazeController, :index
     get "/glazes/:id", GlazeController, :show
-    get "/images", ImageController, :index
+    post "/glazes", GlazeController, :create
+    patch "/glazes/:id", GlazeController, :update
+    put "/glazes/:id", GlazeController, :update
+    delete "/glazes/:id", GlazeController, :delete
+    # ----------------------
+    get "/glazes/:glaze_id/images", ImageController, :index
+    get "/glazes/:glaze_id/images/:id", ImageController, :show
+    post "/glazes/:glaze_id/images", ImageController, :create
+    patch "/glazes/:glaze_id/images/:id", ImageController, :update
+    put "/glazes/:glaze_id/images/:id", ImageController, :update
+    delete "/glazes/:glaze_id/images/:id", ImageController, :delete
+    # ----------------------
+    get "/glazes/:glaze_id/ingredients", IngredientController, :index
+    get "/glazes/:glaze_id/ingredients/:id", IngredientController, :show
+    post "/glazes/:glaze_id/ingredients", IngredientController, :create
+    patch "/glazes/:glaze_id/ingredients/:id", IngredientController, :update
+    put "/glazes/:glaze_id/ingredients/:id", IngredientController, :update
+    delete "/glazes/:glaze_id/ingredients/:id", IngredientController, :delete
   end
 
   # Other scopes may use custom stacks.

@@ -1,34 +1,28 @@
 defmodule GlazeApiWeb.GlazeController do
+  import Ecto.Query
   use GlazeApiWeb, :controller
+  use JaResource
 
   alias GlazeApi.Repo
   alias GlazeApi.Api.Glaze
+  alias GlazeApi.Glazes
 
-  def index(conn, _params) do
-    render(conn, "index.json-api", data: Repo.all(Glaze))
-  end
+  plug JaResource
 
-  def show(conn, %{"id" => id}) do
-    glaze = Repo.get(Glaze, id)
-    # |> Repo.preload([:ingredients])
-    render(conn, "show.json-api", data: glaze)
-  end
+  # def index(conn, _params) do
+  #   glazes = Glazes.list_glazes
+  #   render(conn, "index.json-api", data: glazes)
+  # end
 
-  # , opts: [include: 'ingredients']
-  def create(conn, %{"data" => data}) do
-    attrs = JaSerializer.Params.to_attributes(data)
-    changeset = Glaze.changeset(%Glaze{}, attrs)
+  # def show(conn, %{"id" => id}) do
+  # glaze = Glaze
+  #         |> Repo.get(id)
+  #         |> Repo.preload([:images, :ingredients])
+  #         render(conn, "show.json-api", data: glaze)
+  # end
 
-    case Repo.insert(changeset) do
-      {:ok, glaze} ->
-        conn
-        |> put_status(201)
-        |> render("show.json-api", data: glaze)
-
-      {:error, changeset} ->
-        conn
-        |> put_status(422)
-        |> render(:errors, data: changeset)
+    def handle_index(conn, _params) do
+      Glaze
     end
-  end
+
 end
