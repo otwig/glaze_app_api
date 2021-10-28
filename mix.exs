@@ -20,7 +20,7 @@ defmodule GlazeApi.MixProject do
   def application do
     [
       mod: {GlazeApi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ja_resource]
     ]
   end
 

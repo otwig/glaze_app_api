@@ -12,7 +12,7 @@ defmodule GlazeApi.Glazes do
   def get_glaze!(id) do
     Glaze
     |> Repo.get!(id)
-    |> Repo.preload(:ingredients, :images)
+    |> Repo.preload([:ingredients, :images])
   end
 
   def one_glaze_with_all(id) do

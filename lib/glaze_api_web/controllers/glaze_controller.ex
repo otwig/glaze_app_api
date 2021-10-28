@@ -1,28 +1,28 @@
 defmodule GlazeApiWeb.GlazeController do
-  import Ecto.Query
   use GlazeApiWeb, :controller
-  use JaResource
+  import Ecto.Query
 
-  alias GlazeApi.Repo
   alias GlazeApi.Api.Glaze
-  alias GlazeApi.Glazes
 
+  use JaResource
   plug JaResource
 
-  # def index(conn, _params) do
-  #   glazes = Glazes.list_glazes
-  #   render(conn, "index.json-api", data: glazes)
-  # end
+  def records(conn) do
+    Glaze
+  end
 
-  # def show(conn, %{"id" => id}) do
-  # glaze = Glaze
-  #         |> Repo.get(id)
-  #         |> Repo.preload([:images, :ingredients])
-  #         render(conn, "show.json-api", data: glaze)
-  # end
-
-    def handle_index(conn, _params) do
-      Glaze
+  defimpl Poison.Encoder, for: Decimal do
+    def encode(decimal, options) do
+      Decimal.to_string(decimal, :normal)
+      |> Poison.Encoder.encode(options)
     end
+  end
 
+  # def record(conn, %{"id" => id}) do
+  #   where(Glaze, id: ^id)
+  # end
+
+  # def handle_show(conn, id) do
+  #   Repo.get_by(Glaze, id: id)
+  # end
 end

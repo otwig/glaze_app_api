@@ -5,21 +5,22 @@ defmodule GlazeApiWeb.GlazeView do
   alias GlazeApiWeb.{ImageView, IngredientView}
   alias GlazeApi.Repo
 
+
+  location("/api/view/:id")
+  attributes [:name, :temp, :atmosphere, :kind, :description, :firing, :misc, :ingredients, :images]
+
   def preload(query, _conn, _) do
     Repo.preload(query, [:ingredients, :images])
   end
 
-  attributes [:name, :temp, :atmosphere, :kind, :description, :firing, :misc, :ingredients, :images]
+  has_many :images,
+  serializer: ImageView,
+  include: true,
+  identifiers: :always
 
-    has_many :images,
-    serializer: ImageView,
-    include: true,
-    identifiers: :always
-
-    has_many :ingredients,
-    serializer: IngredientView,
-    include: true,
-    identifiers: :always
-
+  has_many :ingredients,
+  serializer: IngredientView,
+  include: true,
+  identifiers: :always
 
 end
