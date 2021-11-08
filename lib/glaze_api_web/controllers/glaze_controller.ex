@@ -3,6 +3,7 @@ defmodule GlazeApiWeb.GlazeController do
   import Ecto.Query
 
   alias GlazeApi.Api.Glaze
+  alias GlazeApi.Repo
 
   use JaResource
   plug JaResource
@@ -16,6 +17,12 @@ defmodule GlazeApiWeb.GlazeController do
       Decimal.to_string(decimal, :normal)
       |> Poison.Encoder.encode(options)
     end
+  end
+
+  def create_glaze(attrs \\ %{}) do
+    %Glaze{}
+    |> Glaze.changeset(attrs)
+    |> Repo.insert()
   end
 
   # def record(conn, %{"id" => id}) do

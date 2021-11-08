@@ -31,9 +31,7 @@ defmodule GlazeApi.Api.Glaze do
       :kind,
       :description,
       :firing,
-      :misc,
-      :images,
-      :ingredients
+      :misc
     ])
     # |> cast_assoc([:images, :ingredients])
     |> validate_required([
@@ -47,4 +45,6 @@ defmodule GlazeApi.Api.Glaze do
       :ingredients
     ])
   end
+
+
 end
