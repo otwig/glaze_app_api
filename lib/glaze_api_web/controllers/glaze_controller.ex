@@ -12,6 +12,15 @@ defmodule GlazeApiWeb.GlazeController do
     Glaze
   end
 
+  # def record(conn, %{"id" => id}) do
+  #   where(Glaze, id: ^id)
+  # end
+
+  ## this works in iex but i think the above is what i need
+  def get_glaze(id) do
+    Glaze |> Repo.get(id)
+  end
+
   defimpl Poison.Encoder, for: Decimal do
     def encode(decimal, options) do
       Decimal.to_string(decimal, :normal)
@@ -25,9 +34,14 @@ defmodule GlazeApiWeb.GlazeController do
     |> Repo.insert()
   end
 
-  # def record(conn, %{"id" => id}) do
-  #   where(Glaze, id: ^id)
-  # end
+  def update_glaze(%Glaze{} = glaze, attrs \\ %{}) do
+    glaze
+    |> Glaze.changeset(attrs)
+    |> Repo.update()
+  end
+
+
+
 
   # def handle_show(conn, id) do
   #   Repo.get_by(Glaze, id: id)
