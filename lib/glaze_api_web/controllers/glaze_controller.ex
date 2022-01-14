@@ -2,7 +2,7 @@ defmodule GlazeApiWeb.GlazeController do
   use GlazeApiWeb, :controller
   import Ecto.Query
 
-  alias GlazeApi.Api.Glaze
+  alias GlazeApi.Api.{Glaze, Ingredient, Image}
   alias GlazeApi.Repo
 
   use JaResource
@@ -31,6 +31,7 @@ defmodule GlazeApiWeb.GlazeController do
   def create_glaze(attrs \\ %{}) do
     %Glaze{}
     |> Glaze.changeset(attrs)
+    # |> Ecto.Changeset.cast_assoc(:ingredient, with: &Ingredient.changeset/2)
     |> Repo.insert()
   end
 
@@ -40,8 +41,10 @@ defmodule GlazeApiWeb.GlazeController do
     |> Repo.update()
   end
 
-
-
+  def delete_glaze(id) when is_integer(id) do
+    %Glaze{id: id}
+    |> Repo.delete()
+  end
 
   # def handle_show(conn, id) do
   #   Repo.get_by(Glaze, id: id)

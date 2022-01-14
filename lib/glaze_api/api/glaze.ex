@@ -33,7 +33,7 @@ defmodule GlazeApi.Api.Glaze do
       :firing,
       :misc
     ])
-    # |> cast_assoc([:images, :ingredients])
+    |> cast_assoc([:images, :ingredients])
     |> validate_required([
       :name,
       :temp,

@@ -6,7 +6,7 @@ defmodule GlazeApiWeb.GlazeView do
   alias GlazeApi.Repo
 
 
-  location("/api/view/:id")
+  location("/api/glaze/:id")
   attributes [:name, :temp, :atmosphere, :kind, :description, :firing, :misc, :ingredients, :images]
 
   def preload(query, _conn, _) do
