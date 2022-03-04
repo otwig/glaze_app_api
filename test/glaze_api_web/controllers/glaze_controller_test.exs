@@ -1,5 +1,5 @@
 defmodule GlazeApiWeb.GlazeControllerTest do
-  use GlazeApiWeb.ConnCase
+  use GlazeApi.ConnCase
 
   alias GlazeApi.Api.Repo
   alias GlazeApi.Api.Glaze

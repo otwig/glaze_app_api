@@ -1,5 +1,5 @@
 defmodule GlazeApiWeb.PageControllerTest do
-  use GlazeApiWeb.ConnCase
+  use GlazeApi.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

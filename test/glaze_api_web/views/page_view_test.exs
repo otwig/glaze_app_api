@@ -1,3 +1,3 @@
 defmodule GlazeApiWeb.PageViewTest do
-  use GlazeApiWeb.ConnCase, async: true
+  use GlazeApi.ConnCase, async: true
 end
