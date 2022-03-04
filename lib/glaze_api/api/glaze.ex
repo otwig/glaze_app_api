@@ -1,5 +1,6 @@
 defmodule GlazeApi.Api.Glaze do
   use Ecto.Schema
+  use GlazeApiWeb, :model
   import Ecto.Changeset
 
   alias GlazeApi.Repo
@@ -13,6 +14,7 @@ defmodule GlazeApi.Api.Glaze do
     field :description, :string
     field :firing, :string
     field :misc, :string
+    field :color, :string
 
     has_many(:ingredients, Ingredient)
     has_many(:images, Image)
@@ -20,30 +22,31 @@ defmodule GlazeApi.Api.Glaze do
     timestamps()
   end
 
+  @castable [ 
+    :name,
+    :temp,
+    :atmosphere,
+    :kind,
+    :description,
+    :firing,
+    :misc,
+    :color
+  ]
+
+  @required [ 
+    :name,
+    :temp,
+    :atmosphere,
+    :ingredients
+  ]
+
   @doc false
-  def changeset(glaze, attrs) do
-    glaze
+  def changeset(glaze_struct, attrs) do
+    glaze_struct
     |> Repo.preload([:images, :ingredients])
-    |> cast(attrs, [
-      :name,
-      :temp,
-      :atmosphere,
-      :kind,
-      :description,
-      :firing,
-      :misc
-    ])
+    |> cast(attrs, @castable)
     |> cast_assoc([:images, :ingredients])
-    |> validate_required([
-      :name,
-      :temp,
-      :atmosphere,
-      :kind,
-      :description,
-      :firing,
-      :misc,
-      :ingredients
-    ])
+    |> validate_required(@required)
   end
 
 
