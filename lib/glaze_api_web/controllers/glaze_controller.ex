@@ -1,14 +1,13 @@
 defmodule GlazeApiWeb.GlazeController do
   use GlazeApiWeb, :controller
-  import Ecto.Query
 
-  alias GlazeApi.Api.{Glaze, Ingredient, Image}
+  alias GlazeApi.Api.{Glaze}
   alias GlazeApi.Repo
 
   use JaResource
   plug JaResource
 
-  def records(conn) do
+  def records(_conn) do
     Glaze
   end
 
