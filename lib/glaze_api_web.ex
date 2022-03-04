@@ -16,10 +16,34 @@ defmodule GlazeApiWeb do
   below. Instead, define any helper function in modules
   and import those modules here.
   """
+  def shared do
+    quote do
+      alias GlazeApi.Repo
+      alias GlazeApi.Web.{Glaze, Ingredient, Image}
+    end
+  end
+
+  def model do
+    quote do
+      use Ecto.Schema
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
+
+      @timestamps_opts [type: :utc_datetime, usec: false]
+
+      unquote(view_helpers(), shared())
+    end
+  end
 
   def controller do
     quote do
       use Phoenix.Controller, namespace: GlazeApiWeb
+
+      import Ecto
+      import Ecto.Query
+      import Ecto.Changeset
 
       import Plug.Conn
       import GlazeApiWeb.Gettext
@@ -38,7 +62,7 @@ defmodule GlazeApiWeb do
         only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
 
       # Include shared imports and aliases for views
-      unquote(view_helpers())
+      unquote(view_helpers(), shared())
     end
   end
 
@@ -47,7 +71,7 @@ defmodule GlazeApiWeb do
       use Phoenix.LiveView,
         layout: {GlazeApiWeb.LayoutView, "live.html"}
 
-      unquote(view_helpers())
+      unquote(view_helpers(), shared())
     end
   end
 
@@ -55,7 +79,7 @@ defmodule GlazeApiWeb do
     quote do
       use Phoenix.LiveComponent
 
-      unquote(view_helpers())
+      unquote(view_helpers(), shared())
     end
   end
 

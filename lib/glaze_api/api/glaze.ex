@@ -1,7 +1,5 @@
 defmodule GlazeApi.Api.Glaze do
-  use Ecto.Schema
   use GlazeApiWeb, :model
-  import Ecto.Changeset
 
   alias GlazeApi.Repo
   alias GlazeApi.Api.{Ingredient, Image}
