@@ -53,7 +53,9 @@ defmodule GlazeApi.MixProject do
       {:ja_serializer, "~> 0.16.0"},
       {:poison, "~> 3.1"},
       {:cors_plug, "~> 2.0"},
-      {:ja_resource, github: "SelectDesign/ja_resource", branch: "master"}
+      {:ja_resource, github: "SelectDesign/ja_resource", branch: "master"},
+      {:ex_machina, "~> 2.7.0", only: :test},
+      {:faker, "~> 0.17.0", only: :test}
     ]
   end
 
