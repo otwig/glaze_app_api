@@ -1,20 +1,4 @@
-defmodule GlazeApiWeb.ConnCase do
-  @moduledoc """
-  This module defines the test case to be used by
-  tests that require setting up a connection.
-
-  Such tests rely on `Phoenix.ConnTest` and also
-  import other functionality to make it easier
-  to build common data structures and query the data layer.
-
-  Finally, if the test case interacts with the database,
-  we enable the SQL sandbox, so changes done to the database
-  are reverted at the end of every test. If you are using
-  PostgreSQL, you can even run database tests asynchronously
-  by setting `use GlazeApiWeb.ConnCase, async: true`, although
-  this option is not recommended for other databases.
-  """
-
+defmodule GlazeApi.ConnCase do
   use ExUnit.CaseTemplate
 
   using do
@@ -22,7 +6,7 @@ defmodule GlazeApiWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import GlazeApiWeb.ConnCase
+      import GlazeApi.ConnCase
 
       alias GlazeApiWeb.Router.Helpers, as: Routes
 
@@ -32,8 +16,49 @@ defmodule GlazeApiWeb.ConnCase do
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(GlazeApi.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(GlazeApi.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(GlazeApi.Repo, {:shared, self()})
+    end
+
+    conn = Phoenix.ConnTest.build_conn()
+
+    api_conn =
+      conn
+      |> Plug.Conn.put_req_header("accept", "application/vnd.api+json")
+      |> Plug.Conn.put_req_header("content-type", "application/vnd.api+json")
+
+    # full_access_user =
+    #   GlazeApi.Factory.insert(:user,
+    #     email: "current_user@example.com",
+    #     name: "Current User",
+    #     role: "full-access"
+    #   )
+
+    # auth_conn = Guardian.Plug.api_sign_in(api_conn, full_access_user)
+
+    # read_only_user =
+    #   GlazeApi.Factory.insert(:user,
+    #     email: "read_only_user@example.com",
+    #     name: "Read Only User",
+    #     role: "read-only"
+    #   )
+
+    # read_only_conn = Guardian.Plug.api_sign_in(api_conn, read_only_user)
+
+    # client_user =
+    #   GlazeApi.Factory.insert(:user,
+    #     email: "client@user.com",
+    #     name: "Client User",
+    #     role: "client"
+    #   )
+
+    # client_conn = Guardian.Plug.api_sign_in(api_conn, client_user)
+
+    # {:ok,
+    #  conn: conn, api_conn: api_conn, auth_conn: auth_conn, read_only_conn: read_only_conn, client_conn: client_conn}
+
+    {:ok, conn: conn, api_conn: api_conn}
   end
 end
