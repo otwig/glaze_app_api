@@ -9,6 +9,15 @@ defmodule GlazeApi.ConnCase do
       import GlazeApi.ConnCase
 
       alias GlazeApiWeb.Router.Helpers, as: Routes
+  
+      use GlazeApiWeb, :shared
+      alias GlazeApi.Factory
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
+
+      import GlazeApi.AssertionUtility
 
       # The default endpoint for testing
       @endpoint GlazeApiWeb.Endpoint
