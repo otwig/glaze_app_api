@@ -1,29 +1,22 @@
 defmodule GlazeApi.DataCase do
-  @moduledoc """
-  This module defines the setup for tests requiring
-  access to the application's data layer.
-
-  You may define functions here to be used as helpers in
-  your tests.
-
-  Finally, if the test case interacts with the database,
-  we enable the SQL sandbox, so changes done to the database
-  are reverted at the end of every test. If you are using
-  PostgreSQL, you can even run database tests asynchronously
-  by setting `use GlazeApi.DataCase, async: true`, although
-  this option is not recommended for other databases.
-  """
-
   use ExUnit.CaseTemplate
+
+  alias GlazeApi.Repo
+  alias Ecto.Adapters.SQL
 
   using do
     quote do
       alias GlazeApi.Repo
+      alias GlazeApi.Factory
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
       import GlazeApi.DataCase
+
+      import GlazeApi.Factory
+      import GlazeApi.AssertionUtility
+
     end
   end
 
