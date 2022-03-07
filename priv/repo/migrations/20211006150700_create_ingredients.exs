@@ -5,7 +5,7 @@ defmodule GlazeApi.Repo.Migrations.CreateIngredients do
     create table(:ingredients) do
       add :name, :string
       add :amount, :decimal
-      add :glaze_id, references(:glazes, on_delete: :delete_all), null: false
+      add :glaze_id, references(:glazes, on_delete: :delete_all)
 
       timestamps()
     end
