@@ -2,7 +2,7 @@ defmodule GlazeApi.Factory do
   use ExMachina.Ecto, repo: GlazeApi.Repo
 
   def glaze_factory do
-    %GlazeApi.Api.Glaze{
+    %GlazeApi.Glaze{
       name: Faker.Cannabis.strain(),
       temp: 11,
       atmosphere: "reduction",
@@ -19,19 +19,15 @@ defmodule GlazeApi.Factory do
   def ingredient_factory do
     num = Enum.to_list(1..50)
 
-    %GlazeApi.Api.Ingredient{
+    %GlazeApi.Ingredient{
       amount: Enum.random(num),
       name: Faker.StarWars.planet(),
-      glaze_id: Enum.random([1, 2, 3, 4]),
     }
   end
 
   def image_factory do
-    num = Enum.to_list(1..50)
-
-    %GlazeApi.Api.Image{
+   %GlazeApi.Image{
       img_url: "http://placeholderurl.com",
-      glaze_id: Enum.random([1, 2, 3, 4])
     }
   end
 end
