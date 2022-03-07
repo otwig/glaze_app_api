@@ -1,14 +1,14 @@
 defmodule GlazeApiWeb.GlazeController do
   use GlazeApiWeb, :controller
 
-  alias GlazeApi.Api.{Glaze}
+  alias GlazeApi.Glaze
   alias GlazeApi.Repo
 
   use JaResource
   plug JaResource
 
   def records(_conn) do
-    Glaze
+    Repo.all(Glaze)
   end
 
   # def record(conn, %{"id" => id}) do
@@ -30,7 +30,7 @@ defmodule GlazeApiWeb.GlazeController do
   def create_glaze(attrs \\ %{}) do
     %Glaze{}
     |> Glaze.changeset(attrs)
-    # |> Ecto.Changeset.cast_assoc(:ingredient, with: &Ingredient.changeset/2)
+    |> Ecto.Changeset.cast_assoc(:ingredient, with: &Ingredient.changeset/2)
     |> Repo.insert()
   end
 

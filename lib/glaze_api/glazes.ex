@@ -2,7 +2,7 @@ defmodule GlazeApi.Glazes do
   import Ecto.Query, warn: false
 
   alias GlazeApi.Repo
-  alias GlazeApi.Api.{Glaze, Image, Ingredient}
+  alias GlazeApi.{Glaze, Image, Ingredient}
 
   def list_glazes do
     Repo.all(Glaze)
