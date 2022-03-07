@@ -1,8 +1,6 @@
-defmodule GlazeApi.Api.Glaze do
+defmodule GlazeApi.Glaze do
+  use Ecto.Schema
   use GlazeApiWeb, :model
-
-  alias GlazeApi.Repo
-  alias GlazeApi.Api.{Ingredient, Image}
 
   schema "glazes" do
     field :name, :string
@@ -35,17 +33,20 @@ defmodule GlazeApi.Api.Glaze do
     :name,
     :temp,
     :atmosphere,
-    :ingredients
+    :ingredient_id
   ]
 
   @doc false
-  def changeset(glaze_struct, attrs) do
-    glaze_struct
-    |> Repo.preload([:images, :ingredients])
+  def changeset(glaze, attrs) do
+    glaze
     |> cast(attrs, @castable)
-    |> cast_assoc([:images, :ingredients])
     |> validate_required(@required)
+    |> assoc_constraint(:ingredient)
+    |> foreign_key_constraint(:ingredient_id)
+    |> validate_inclusion(:temp, 0..20)
   end
+  
+  # |> cast_assoc(:ingredients, with: &ingredient_changeset/2)
 
 
 end

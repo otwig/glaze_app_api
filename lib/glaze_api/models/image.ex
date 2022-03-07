@@ -1,12 +1,13 @@
-defmodule GlazeApi.Api.Image do
+defmodule GlazeApi.Image do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias GlazeApi.Api.Glaze
+  alias GlazeApi.Glaze
 
   schema "images" do
     field :img_url, :string
-    belongs_to :glazes, Glaze, foreign_key: :glaze_id
+
+    belongs_to :glaze, Glaze
 
     timestamps()
   end
@@ -16,6 +17,8 @@ defmodule GlazeApi.Api.Image do
     image
     |> cast(attrs, [:img_url, :glaze_id])
     |> validate_required([:img_url, :glaze_id])
-    |> assoc_constraint(:glazes)
+    |> foreign_key_constraint(:glaze_id)
   end
 end
+
+# |> assoc_constraint(:glaze)

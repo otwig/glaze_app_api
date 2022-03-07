@@ -1,13 +1,14 @@
-defmodule GlazeApi.Api.Ingredient do
+defmodule GlazeApi.Ingredient do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias GlazeApi.Api.Glaze
+  alias GlazeApi.Glaze
 
   schema "ingredients" do
     field :amount, :decimal
     field :name, :string
-    belongs_to :glazes, Glaze, foreign_key: :glaze_id
+    
+    belongs_to :glaze, Glaze
 
     timestamps()
   end
@@ -16,7 +17,9 @@ defmodule GlazeApi.Api.Ingredient do
     ingredient
     |> cast(attrs, [:amount, :name, :glaze_id])
     |> validate_required([:amount, :name, :glaze_id])
-    |> assoc_constraint(:glazes)
+    |> foreign_key_constraint(:glaze_id)
   end
-
+  
 end
+
+# |> assoc_constraint(:glaze)
