@@ -19,7 +19,7 @@ defmodule GlazeApiWeb do
   def shared do
     quote do
       alias GlazeApi.Repo
-      alias GlazeApi.Web.{Glaze, Ingredient, Image}
+      alias GlazeApi.{Glaze, Ingredient, Image}
     end
   end
 
@@ -33,7 +33,7 @@ defmodule GlazeApiWeb do
 
       @timestamps_opts [type: :utc_datetime, usec: false]
 
-      unquote(view_helpers())
+      unquote(shared())
     end
   end
 
@@ -48,6 +48,8 @@ defmodule GlazeApiWeb do
       import Plug.Conn
       import GlazeApiWeb.Gettext
       alias GlazeApiWeb.Router.Helpers, as: Routes
+
+      unquote(shared())
     end
   end
 
@@ -63,6 +65,19 @@ defmodule GlazeApiWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      unquote(shared())
+
+      use JaSerializer.PhoenixView
+    end
+  end
+
+  def test do
+    quote do
+      import Ecto.Changeset, only: [change: 2]
+      # import Guardian.Plug, only: [current_resource: 1]
+
+      unquote(shared())
     end
   end
 
