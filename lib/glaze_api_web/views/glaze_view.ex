@@ -1,13 +1,8 @@
 defmodule GlazeApiWeb.GlazeView do
   use GlazeApiWeb, :view
-  use JaSerializer.PhoenixView
 
-  alias GlazeApiWeb.{ImageView, IngredientView}
-  alias GlazeApi.Repo
-
-
-  location("/api/glaze/:id")
-  attributes [:name, :temp, :atmosphere, :kind, :description, :firing, :misc, :ingredients, :images]
+  location("/api/glazes/:id")
+  attributes([:name, :temp, :atmosphere, :kind, :description, :firing, :misc, :ingredients, :images, :color])
 
   def preload(query, _conn, _) do
     Repo.preload(query, [:ingredients, :images])
@@ -15,12 +10,10 @@ defmodule GlazeApiWeb.GlazeView do
 
   has_many :images,
   serializer: ImageView,
-  include: true,
-  identifiers: :always
+  include: true
 
   has_many :ingredients,
   serializer: IngredientView,
-  include: true,
-  identifiers: :always
+  include: true
 
 end
