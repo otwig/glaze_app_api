@@ -1,6 +1,6 @@
 defmodule GlazeApi.Image do
   use Ecto.Schema
-  import Ecto.Changeset
+  use GlazeApiWeb, :model
 
   alias GlazeApi.Glaze
 
@@ -20,5 +20,3 @@ defmodule GlazeApi.Image do
     |> foreign_key_constraint(:glaze_id)
   end
 end
-
-# |> assoc_constraint(:glaze)

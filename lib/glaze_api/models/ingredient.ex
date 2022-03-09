@@ -1,6 +1,6 @@
 defmodule GlazeApi.Ingredient do
   use Ecto.Schema
-  import Ecto.Changeset
+  use GlazeApiWeb, :model
 
   alias GlazeApi.Glaze
 
@@ -19,7 +19,4 @@ defmodule GlazeApi.Ingredient do
     |> validate_required([:amount, :name, :glaze_id])
     |> foreign_key_constraint(:glaze_id)
   end
-  
 end
-
-# |> assoc_constraint(:glaze)

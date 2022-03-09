@@ -32,8 +32,7 @@ defmodule GlazeApi.Glaze do
   @required [ 
     :name,
     :temp,
-    :atmosphere,
-    :ingredient_id
+    :atmosphere
   ]
 
   @doc false
@@ -41,12 +40,6 @@ defmodule GlazeApi.Glaze do
     glaze
     |> cast(attrs, @castable)
     |> validate_required(@required)
-    |> assoc_constraint(:ingredient)
-    |> foreign_key_constraint(:ingredient_id)
     |> validate_inclusion(:temp, 0..20)
   end
-  
-  # |> cast_assoc(:ingredients, with: &ingredient_changeset/2)
-
-
 end
