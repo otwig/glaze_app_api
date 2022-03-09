@@ -4,19 +4,6 @@ defmodule GlazeApiWeb.GlazeControllerTest do
 
   alias GlazeApi.{Ingredient, Image, Glaze}
 
-  @create_attrs %{
-    name: "some",
-    temp: 10,
-    atmosphere: "some",
-    kind: "some",
-    description: "some",
-    firing: "some",
-    misc: "some",
-    color: "some",
-    # ingredients: [%Ingredient{"some", 36.0, 1}, %Ingredient{"some", 24.0, 1}],
-    # images: [%Image{"url", 1}]
-  }
-
   setup %{api_conn: conn} do
     {:ok, conn: conn}
   end
