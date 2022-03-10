@@ -1,8 +1,8 @@
-defmodule GlazeApi.Ingredient do
+defmodule GlazeApiWeb.Ingredient do
   use Ecto.Schema
   use GlazeApiWeb, :model
 
-  alias GlazeApi.Glaze
+  alias GlazeApiWeb.Glaze
 
   schema "ingredients" do
     field :amount, :decimal

@@ -1,8 +1,8 @@
-defmodule GlazeApi.Image do
+defmodule GlazeApiWeb.Image do
   use Ecto.Schema
   use GlazeApiWeb, :model
 
-  alias GlazeApi.Glaze
+  alias GlazeApiWeb.Glaze
 
   schema "images" do
     field :img_url, :string

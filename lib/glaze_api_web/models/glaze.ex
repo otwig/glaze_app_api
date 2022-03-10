@@ -1,4 +1,4 @@
-defmodule GlazeApi.Glaze do
+defmodule GlazeApiWeb.Glaze do
   use Ecto.Schema
   use GlazeApiWeb, :model
 
