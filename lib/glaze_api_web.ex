@@ -19,7 +19,7 @@ defmodule GlazeApiWeb do
   def shared do
     quote do
       alias GlazeApi.Repo
-      alias GlazeApi.{Glaze, Ingredient, Image}
+      alias GlazeApiWeb.{Glaze, Ingredient, Image}
     end
   end
 

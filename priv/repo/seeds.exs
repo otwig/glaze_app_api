@@ -1,7 +1,5 @@
 alias GlazeApi.Repo
-alias GlazeApi.Glaze
-alias GlazeApi.Image
-alias GlazeApi.Ingredient
+alias GlazeApiWeb.{Glaze, Image, Ingredient}
 
 # /****************/
 Repo.insert!(%Glaze{

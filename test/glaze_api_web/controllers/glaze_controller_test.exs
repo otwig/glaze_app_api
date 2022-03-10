@@ -2,7 +2,7 @@ defmodule GlazeApiWeb.GlazeControllerTest do
   use GlazeApi.ConnCase
   use ExUnit.Case
 
-  alias GlazeApi.{Ingredient, Image, Glaze}
+  alias GlazeApiWeb.{Ingredient, Image, Glaze}
 
   setup %{api_conn: conn} do
     {:ok, conn: conn}
